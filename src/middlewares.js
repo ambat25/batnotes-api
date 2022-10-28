@@ -13,9 +13,18 @@ module.exports = (app) => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
-  app.use((_, res, next) => {
-    var user = getAuth()?.currentUser;
-    res.locals.currentUser = user;
-    next();
+  app.use((req, res, next) => {
+    const idToken = ((req.headers.authorization || '').split(' ')[1])
+    if (!idToken) return res.status(401).send('unauthorized')
+
+    getAuth()
+      .verifyIdToken(idToken)
+      .then((decodedToken) => {
+        res.locals.currentUser = decodedToken;
+        next();
+      })
+      .catch((error) => {
+        res.status(401).send('unauthorized')
+      });
   })
 };

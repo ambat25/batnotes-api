@@ -1,13 +1,13 @@
 const { initializeApp } = require('firebase-admin/app');
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBDun8Q3Ehq8nSP3W6IvYdQIGRRHEwKQls",
-  authDomain: "batnotes-25.firebaseapp.com",
-  projectId: "batnotes-25",
-  storageBucket: "batnotes-25.appspot.com",
-  messagingSenderId: "697431665943",
-  appId: "1:697431665943:web:2a39dea123196f2d519b52",
-  measurementId: "G-G6WKQQ20BK"
+  apiKey: "AIzaSyDUN8kn7DSw2FE53EUdzYceliHS1ou9P-U",
+  authDomain: "tailor-shop-e3434.firebaseapp.com",
+  databaseURL: "https://tailor-shop-e3434.firebaseio.com",
+  projectId: "tailor-shop-e3434",
+  storageBucket: "tailor-shop-e3434.appspot.com",
+  messagingSenderId: "159760251236",
+  appId: "1:159760251236:web:7c96835f674bf0b9"
 };
 
 

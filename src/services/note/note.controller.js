@@ -14,7 +14,7 @@ module.exports = {
     try {
       const newNote = await Notes({
         title: req.body.title,
-        userId: 'test user',
+        userId: res.locals.currentUser.uid,
         content: defaultContent
       });
       await newNote.save();
@@ -26,7 +26,7 @@ module.exports = {
   },
   async update(req, res) {
     try {
-      const newNote = await Notes.findOneAndUpdate({ _id: mongoose.Types.ObjectId(req.params.id) },
+      const newNote = await Notes.findOneAndUpdate({ _id: mongoose.Types.ObjectId(req.params.id), userId: res.locals.currentUser.uid, },
         {
           $set:{
             title: req.body.title,
@@ -46,7 +46,7 @@ module.exports = {
       const page = req.query['page'] || 1;
       const skip = (page - 1) * limit;
       const total = await Notes.count({});
-      const notes = await Notes.find({}).sort('-createdAt').skip(skip).limit(limit).lean();
+      const notes = await Notes.find({ userId: res.locals.currentUser.uid }).sort('-createdAt').skip(skip).limit(limit).lean();
       return res.status(StatusCodes.OK).send({ data: notes, page, total });
     } catch (e) {
       logger.error(e);
